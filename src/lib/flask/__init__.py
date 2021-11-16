@@ -5,7 +5,13 @@ class Flask():
         self.appName = name
     	self.request = "0"
     	self.session = "off"
+    	self.routingTable = {}
 
     @classmethod
     def run(self):
         print("Flask.app here!")
+
+    
+    def route(func):
+    	self.routingTable["/"] = func
+
