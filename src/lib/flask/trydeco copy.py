@@ -2,6 +2,8 @@ class Flask():
     "The starting class for all Flask web apps"
     def __init__(self, name):
         self.appName = name
+        self.request = "0"
+        self.session = "off"
         self.routes = []
         self.routingTable = {}
 
@@ -12,7 +14,7 @@ class Flask():
                 print(route + " -> " + str(self.routingTable[route].func))
             else:
                 print(route + " -> " + str(self.routingTable[route].func) +
-                    " with methods="+ str(self.routingTable[route].methods))
+                " with methods="+ str(self.routingTable[route].methods))
     
     def route(self, route, **kwargs):
         def wrapper(func):
@@ -26,3 +28,17 @@ class RouteTable:
     def __init__(self, func, methods):
         self.func = func
         self.methods = methods
+
+
+app = Flask("basic app")
+
+@app.route("/login", methods=["POST", "GET"])
+def login():
+    print("login here")
+
+@app.route("/signup")
+def signup():
+    print("signup here")
+    
+if __name__ == '__main__':
+    app.run()
