@@ -1,3 +1,5 @@
+global app
+
 class Flask():
     "The starting class for all Flask web apps"
     

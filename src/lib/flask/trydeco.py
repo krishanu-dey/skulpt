@@ -1,21 +1,69 @@
 from __init__ import Flask, redirect, url_for
 
+# Set up test environment.
 app = Flask("basic app")
 
-@app.route("/lg", methods=["POST", "GET"])
+@app.route("/lg")
+def login_redirect():
+	return redirect("/login")
+
+@app.route("/login", methods=["POST", "GET"])
 def login():
-	print("login here")
-	return redirect("/signup")
+	return "login here"
 
 @app.route("/signup")
 def signup():
-	print("signup here")
-	return "<h1>Hi</h1>"
-    
-if __name__ == '__main__':
-	app.run()
-	response = app.handleRoute("/lg")
+	return "signup here"
 
-	print(url_for("login"))
+#Test functions.
+def test_handleRoute():
+	needResp = {
+	'html': 'signup here', 
+	'fnNamesToRoutes': {
+		'login_redirect': '/lg', 
+		'login': '/login', 
+		'signup': '/signup'
+		}
+	}
+	
+	gotResp = app.handleRoute("/signup")
+	
+	if gotResp != needResp:
+		print(f'app.handleRoute("/signup") returned {gotResp}, but need {needResp}.')
+		return False
+	return True
+
+def test_url_for():
+	needResp = "/lg"
+	
+	gotResp = url_for("login_redirect")
+
+	if gotResp != needResp:
+		print(f'url_for("/signup") returned {gotResp}, but need {needResp}.')
+		return False
+	return True
+
+def test_redirect():
+	needResp = "signup here"
+	
+	gotResp = redirect("/signup")
+
+	if gotResp != needResp:
+		print(f'redirect("/signup") returned {gotResp}, but need {needResp}.')
+		return False
+	return True
+
+if __name__ == '__main__':
+	test_results = [
+		test_handleRoute(),
+		test_url_for(),
+		test_redirect(),
+	]
+	if False in test_results:
+		print(f"All tests did not pass.")
+	else:
+		print(f"All tests passed.")
+
+
 
 
