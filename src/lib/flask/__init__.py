@@ -5,7 +5,7 @@ class Flask():
     
     def __init__(self, name):
         self.appName = name
-        self.fnNamesToRoutes = {}
+        self.endpointToRoutes = {}
         self.routingTable = {}
         global app
         app = self
@@ -15,15 +15,19 @@ class Flask():
     
     def route(self, route, **kwargs):
         def wrapper(func):
-            self.fnNamesToRoutes[func.__name__] = route
+            self.endpointToRoutes[func.__name__] = route
             self.routingTable[route] = RouteTableEntry(func, kwargs.pop('methods', ''))
             return func
         return wrapper
 
+    def add_url_route(self, route, endpoint, view_function, **kwargs):
+        self.endpointToRoutes[endpoint] = route
+        self.routingTable[route] = RouteTableEntry(view_function, kwargs.pop('methods', ''))
+
     def handleRoute(self, route):
         response = {}
         response["html"] = self.routingTable[route].func()
-        response["fnNamesToRoutes"] = self.fnNamesToRoutes
+        response["endpointToRoutes"] = self.endpointToRoutes
         return response
 
 class RouteTableEntry:
@@ -35,4 +39,4 @@ def redirect(newRoute):
     return app.routingTable[newRoute].func()
 
 def url_for(functionName, **kwargs):
-    return app.fnNamesToRoutes[functionName]
+    return app.endpointToRoutes[functionName]

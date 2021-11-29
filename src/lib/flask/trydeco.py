@@ -19,7 +19,7 @@ def signup():
 def test_handleRoute():
 	needResp = {
 	'html': 'signup here', 
-	'fnNamesToRoutes': {
+	'endpointToRoutes': {
 		'login_redirect': '/lg', 
 		'login': '/login', 
 		'signup': '/signup'
@@ -52,6 +52,23 @@ def test_redirect():
 		print(f'redirect("/signup") returned {gotResp}, but need {needResp}.')
 		return False
 	return True
+
+def test_redirect():
+    app.add_url_route("/signup", "signup", signup)	
+	
+    needRoute = "/signup"
+    gotRoute = app.endpointToRoutes["signup"]
+    if needRoute != gotRoute:
+        print(f'app.endpointToRoutes["signup"] returned {gotRoute}, but need {needRoute}.')
+        return False
+
+    needResp = "signup here"
+    gotResp = app.routingTable["/signup"].func()
+    if needResp != gotResp:
+        print(f'app.routingTable["/signup"] returned {gotResp}, but need {needResp}.')
+        return False
+
+    return True
 
 if __name__ == '__main__':
 	test_results = [
