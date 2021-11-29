@@ -53,7 +53,7 @@ def test_redirect():
 		return False
 	return True
 
-def test_redirect():
+def test_radd_url_route():
     app.add_url_route("/signup", "signup", signup)	
 	
     needRoute = "/signup"
