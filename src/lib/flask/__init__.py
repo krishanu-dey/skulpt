@@ -26,10 +26,13 @@ class Flask():
         self.endpointToRoutes[endpoint] = route
         self.routingTable[route] = RouteTableEntry(view_function, kwargs.pop('methods', ''))
 
-    def handleRoute(self, route):
+    def handleRoute(self, routeInput):
         response = {}
-        response["html"] = self.routingTable[route].func()
-        response["endpointToRoutes"] = self.endpointToRoutes
+        for routeFromTable in self.routingTable.keys():
+            evaluatedRoute = routeMatch(routeFromTable, routeInput)
+            if evaluatedRoute[0]:    	
+                response["html"] = self.routingTable[routeFromTable].func(**evaluatedRoute[1])
+                response["endpointToRoutes"] = self.endpointToRoutes
         return response
 
 class RouteTableEntry:

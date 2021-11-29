@@ -16,21 +16,26 @@ def login():
 def signup():
 	return "signup here"
 
+@app.route("/blog/<user>/<int:postID>/<float:weight>")
+def dynamic_url(user, postID, weight):
+	return f"this user {user} has {postID} and weight {weight}"
+
 #Test functions.
 def test_handleRoute():
 	needResp = {
-	'html': 'signup here', 
+	'html': 'this user kris has 12 and weight 70.0', 
 	'endpointToRoutes': {
 		'login_redirect': '/lg', 
 		'login': '/login', 
-		'signup': '/signup'
+		'signup': '/signup',
+		'dynamic_url': '/blog/<user>/<int:postID>/<float:weight>',
 		}
 	}
 	
-	gotResp = app.handleRoute("/signup")
+	gotResp = app.handleRoute("/blog/kris/12/70.0")
 	
 	if gotResp != needResp:
-		print(f'app.handleRoute("/signup") returned {gotResp}, but need {needResp}.')
+		print(f'app.handleRoute("/dynamic_url") returned {gotResp}, but need {needResp}.')
 		return False
 	return True
 
@@ -96,8 +101,8 @@ def test_routeMatch():
 		print("routeMatch() test failed")
 		return False
 
-	gotResp = routeMatch("/blog/<user>/<int:postID>/<float:long>", "/blog/kris/12/3.0")
-	needResp = (True, {'user': 'kris', 'postID': 12, 'long': 3.0})
+	gotResp = routeMatch("/blog/<user>/<int:postID>/<float:long>", "/blog/kris/12/70.0")
+	needResp = (True, {'user': 'kris', 'postID': 12, 'long': 70.0})
 	if needResp != gotResp:
 		print(f"routeMatch() test failed: got response {gotResp}, need response {needResp}")
 		return False
