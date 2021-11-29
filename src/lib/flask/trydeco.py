@@ -75,7 +75,7 @@ if __name__ == '__main__':
 		test_handleRoute(),
 		test_url_for(),
 		test_redirect(),
-		test_add_url_route()
+		test_add_url_route(),
 	]
 	if False in test_results:
 		print(f"All tests did not pass.")
