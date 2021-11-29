@@ -3,30 +3,34 @@ class Flask():
     
     def __init__(self, name):
         self.appName = name
-        self.routes = []
+        self.fnNamesToRoutes = {}
         self.routingTable = {}
+        global app
+        app = self
 
     def run(self):
-        # print(self.routingTable)
-        # for route in self.routes:
-        #     if len(self.routingTable[route].methods) == 0:
-        #         print(route + " -> " + str(self.routingTable[route].func))
-        #     else:
-        #         print(route + " -> " + str(self.routingTable[route].func) +
-        #             " with methods="+ str(self.routingTable[route].methods))
         print("Flask is running")
     
     def route(self, route, **kwargs):
         def wrapper(func):
-            self.routes.append(route)
+            self.fnNamesToRoutes[func.__name__] = route
             self.routingTable[route] = RouteTableEntry(func, kwargs.pop('methods', ''))
             return func
         return wrapper
 
     def handleRoute(self, route):
-        return self.routingTable[route].func()
+        response = {}
+        response["html"] = self.routingTable[route].func()
+        response["fnNamesToRoutes"] = self.fnNamesToRoutes
+        return response
 
 class RouteTableEntry:
     def __init__(self, func, methods):
         self.func = func
         self.methods = methods
+
+def redirect(newRoute):
+    return app.routingTable[newRoute].func()
+
+def url_for(functionName, **kwargs):
+    return app.fnNamesToRoutes[functionName]
