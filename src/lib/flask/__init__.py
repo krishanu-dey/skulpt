@@ -1,3 +1,5 @@
+from helpers import routeMatch
+
 global app
 
 class Flask():
@@ -40,3 +42,12 @@ def redirect(newRoute):
 
 def url_for(functionName, **kwargs):
     return app.endpointToRoutes[functionName]
+
+def abort(code):
+	if code == 404:
+		return '<title>404 Not Found</title><body><h1>Not Found</h1>'\
+		'<p>The requested URL was not found on the server. If you entered '\
+		'the URL manually please check your spelling and try again.</p></body>'
+
+	return f'<title>Error Page: {code}</title> Error page for code number {code}'
+
