@@ -1,6 +1,7 @@
 from helpers import routeMatch
 
 global app
+html_files = {}
 
 class Flask():
     "The starting class for all Flask web apps"
@@ -30,8 +31,13 @@ class Flask():
         response = {}
         for routeFromTable in self.routingTable.keys():
             evaluatedRoute = routeMatch(routeFromTable, routeInput)
-            if evaluatedRoute[0]:    	
-                response["html"] = self.routingTable[routeFromTable].func(**evaluatedRoute[1])
+            if evaluatedRoute[0]:
+                htmlWithParamsMaybe = self.routingTable[routeFromTable].func(**evaluatedRoute[1])
+                if type(htmlWithParamsMaybe) == str:  	
+                    response["html"] = htmlWithParamsMaybe
+                else:
+                    response["html"] = htmlWithParamsMaybe[0]
+                    response["template_params"] = htmlWithParamsMaybe[1]
                 response["endpointToRoutes"] = self.endpointToRoutes
         return response
 
@@ -45,6 +51,13 @@ def redirect(newRoute):
 
 def url_for(functionName, **kwargs):
     return app.endpointToRoutes[functionName]
+
+#TODO: All HTML files to be passed to flask lib as a dict(key=file name, value=html text)
+def render_template(htmlText, **kwargs):
+    template_params = {}
+    for key, value in kwargs.items():
+        template_params[key] = value
+    return htmlText, template_params
 
 def abort(code):
 	if code == 404:

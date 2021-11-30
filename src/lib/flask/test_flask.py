@@ -1,4 +1,4 @@
-from __init__ import Flask, redirect, url_for, abort
+from __init__ import Flask, redirect, url_for, abort, render_template
 from helpers import routeMatch
 
 # Set up test environment.
@@ -20,6 +20,10 @@ def signup():
 def dynamic_url(user, postID, weight):
 	return f"this user {user} has {postID} and weight {weight}"
 
+@app.route("/template")
+def template():
+    return render_template("hi {{ name }} , {{ age }}", name="kris", age=23)
+
 #Test functions.
 def test_handleRoute():
 	needResp = {
@@ -29,6 +33,7 @@ def test_handleRoute():
 		'login': '/login', 
 		'signup': '/signup',
 		'dynamic_url': '/blog/<user>/<int:postID>/<float:weight>',
+		'template': '/template',
 		}
 	}
 	
@@ -37,6 +42,23 @@ def test_handleRoute():
 	if gotResp != needResp:
 		print(f'app.handleRoute("/dynamic_url") returned {gotResp}, but need {needResp}.')
 		return False
+
+	needResp = {
+	'html': 'hi {{ name }} , {{ age }}',
+	'template_params': {'name': 'kris', 'age': 23},
+	'endpointToRoutes': {
+		'login_redirect': '/lg', 
+		'login': '/login', 
+		'signup': '/signup',
+		'dynamic_url': '/blog/<user>/<int:postID>/<float:weight>',
+		'template': '/template',
+		}
+	}
+	gotResp = app.handleRoute("/template")
+	if gotResp != needResp:
+		print(f'app.handleRoute("/dynamic_url") returned {gotResp}, but need {needResp}.')
+		return False
+
 	return True
 
 def test_url_for():
@@ -109,6 +131,16 @@ def test_routeMatch():
 
 	return True
 
+def test_render_template():
+    needResp = 'hi', {'name': 'kris', 'age': 23}
+
+    gotResp = render_template("hi", name="kris", age=23)
+    if needResp != gotResp:
+        print(f'render_template("hi", name="kris", age=23) returned {gotResp}, but need {needResp}.')
+        return False
+
+    return True
+
 if __name__ == '__main__':
 	test_results = [
 		test_handleRoute(),
@@ -116,7 +148,8 @@ if __name__ == '__main__':
 		test_redirect(),
 		test_add_url_route(),
 		test_abort(),
-		test_routeMatch()
+		test_routeMatch(),
+		test_render_template(),
 	]
 	if False in test_results:
 		print(f"All tests did not pass.")
