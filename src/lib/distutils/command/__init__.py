@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("command")
+raise NotImplementedError("command is not yet implemented in Skulpt")

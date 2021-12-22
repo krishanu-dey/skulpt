@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("profile")
+raise NotImplementedError("profile is not yet implemented in Skulpt")

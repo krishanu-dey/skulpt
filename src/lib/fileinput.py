@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("fileinput")
+raise NotImplementedError("fileinput is not yet implemented in Skulpt")

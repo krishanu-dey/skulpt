@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("telnetlib")
+raise NotImplementedError("telnetlib is not yet implemented in Skulpt")

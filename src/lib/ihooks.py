@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("ihooks")
+raise NotImplementedError("ihooks is not yet implemented in Skulpt")

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("modulefinder")
+raise NotImplementedError("modulefinder is not yet implemented in Skulpt")

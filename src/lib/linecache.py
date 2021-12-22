@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("linecache")
+raise NotImplementedError("linecache is not yet implemented in Skulpt")

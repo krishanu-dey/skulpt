@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("_threading_local")
+raise NotImplementedError("_threading_local is not yet implemented in Skulpt")

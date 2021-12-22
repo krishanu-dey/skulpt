@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("wave")
+raise NotImplementedError("wave is not yet implemented in Skulpt")

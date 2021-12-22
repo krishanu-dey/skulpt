@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("sunau")
+raise NotImplementedError("sunau is not yet implemented in Skulpt")

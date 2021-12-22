@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("dummy_thread")
+raise NotImplementedError("dummy_thread is not yet implemented in Skulpt")

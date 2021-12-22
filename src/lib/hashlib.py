@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("hashlib")
+raise NotImplementedError("hashlib is not yet implemented in Skulpt")

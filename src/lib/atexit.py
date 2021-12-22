@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("atexit")
+raise NotImplementedError("atexit is not yet implemented in Skulpt")

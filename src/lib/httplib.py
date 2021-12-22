@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("httplib")
+raise NotImplementedError("httplib is not yet implemented in Skulpt")

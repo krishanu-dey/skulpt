@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("ctypes")
+raise NotImplementedError("ctypes is not yet implemented in Skulpt")

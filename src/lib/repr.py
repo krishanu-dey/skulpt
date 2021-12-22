@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("repr")
+raise NotImplementedError("repr is not yet implemented in Skulpt")

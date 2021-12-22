@@ -41,7 +41,7 @@ Sk.builtin.callable_iter_ = Sk.abstr.buildIteratorClass("callable_iterator", {
             }
         }
     },
-    flags: { sk$unacceptableBase: true },
+    flags: { sk$acceptable_as_base_class: false },
 });
 
 
@@ -90,7 +90,7 @@ Sk.builtin.seq_iter_ = Sk.abstr.buildIteratorClass("iterator", {
             },
         },
     },
-    flags: { sk$unacceptableBase: true },
+    flags: { sk$acceptable_as_base_class: false },
 });
 
 

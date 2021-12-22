@@ -623,9 +623,9 @@ Compiler.prototype.ccompare = function (e) {
 
     for (i = 0; i < n; ++i) {
         rhs = this.vexpr(e.comparators[i]);
-        out("$ret = Sk.misceval.richCompareBool(", cur, ",", rhs, ",'", e.ops[i].prototype._astname, "', true);");
+        out("$ret = Sk.builtin.bool(Sk.misceval.richCompareBool(", cur, ",", rhs, ",'", e.ops[i].prototype._astname, "', true));");
         this._checkSuspension(e);
-        out(fres, "=Sk.builtin.bool($ret);");
+        out(fres, "=$ret;");
         this._jumpfalse("$ret", done);
         cur = rhs;
     }
@@ -2909,7 +2909,7 @@ Compiler.prototype.cbody = function (stmts, class_for_super) {
     }
     /* Every annotated class and module should have __annotations__. */
     if (this.u.hasAnnotations) {
-        this.u.varDeclsCode += "$loc.__annotations__ || ($loc.__annotations__ = new Sk.builtin.dict());";
+        this.u.varDeclsCode += "$loc.__annotations__ = new Sk.builtin.dict();";
     }
 };
 
@@ -3020,6 +3020,12 @@ Sk.compile = function (source, filename, mode, canSuspend) {
     var savedFlags = Sk.__future__;
     Sk.__future__ = Object.create(Sk.__future__);
 
+    // Automating 'yield_until_next_frame()' insertion to support
+    // Pytch threading should be a module local option; make a
+    // temporary value for that too.
+    var savedPytchThreadingFlag = Sk.pytchThreading;
+    Sk.pytchThreading = false;
+
     var parse = Sk.parse(filename, source);
     var ast = Sk.astFromParse(parse.cst, filename, parse.flags);
     // console.log(JSON.stringify(ast, undefined, 2));
@@ -3034,6 +3040,9 @@ Sk.compile = function (source, filename, mode, canSuspend) {
 
     // Restore the global __future__ flags
     Sk.__future__ = savedFlags;
+
+    // Restore the global pytchThreading flag.
+    Sk.pytchThreading = savedPytchThreadingFlag;
 
     var ret = `var $compiledmod = function() {${c.result.join("")}\nreturn ${funcname};}();\n$compiledmod;`;
 

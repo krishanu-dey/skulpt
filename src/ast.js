@@ -277,6 +277,24 @@ function new_identifier(n, c) {
     return new Sk.builtin.str(n);
 }
 
+/*
+  This is the AST for a function call to pytch.yield_until_next_frame().  We
+  insert one of these at the end of every loop when we are in Pytch mode.  The
+  parameter 'n' is the tokeniser object for the outer loop.
+*/
+function astForPytchYield(n) {
+    var l = `'(auto-added yield in loop started on line ${n.lineno})'`;
+    var c = `'(auto-added yield in loop started on column ${n.col_offset})'`;
+    var attr = new Sk.astnodes.Attribute(new Sk.astnodes.Name(new Sk.builtin.str("pytch"),
+                                                              Sk.astnodes.Load,
+                                                              l, c),
+                                         new Sk.builtin.str("yield_until_next_frame"),
+                                         Sk.astnodes.Load,
+                                         l, c);
+    var call = new Sk.astnodes.Call(attr, null, null, l, c);
+    return new Sk.astnodes.Expr(call, l, c);
+}
+
 function astForCompOp (c, n) {
     /* comp_op: '<'|'>'|'=='|'>='|'<='|'!='|'in'|'not' 'in'|'is'
      |'is' 'not'
@@ -797,6 +815,15 @@ function astForImportStmt (c, n) {
         for (i = 0; i < NCH(n); i += 2) {
             aliases[i / 2] = aliasForImportName(c, CHILD(n, i));
         }
+
+        aliases.forEach(function(a, idx) {
+            // TODO: This will not detect aliases or qualified imports,
+            // which means only a simple "import pytch" will turn on
+            // automatic yield_until_next_frame() insertion.
+            if (a.name.v === "pytch")
+                Sk.pytchThreading = true;
+        });
+
         return new Sk.astnodes.Import(aliases, lineno, col_offset);
     }
     else if (n.type === SYM.import_from) {
@@ -933,9 +960,16 @@ function astForForStmt (c, n) {
         target = new Sk.astnodes.Tuple(_target, Sk.astnodes.Store, n.lineno, n.col_offset);
     }
 
+    var body = astForSuite(c, CHILD(n, 5));
+    if (Sk.pytchThreading) {
+        // Add the yield-until-next-frame wait for a Pytch program, as
+        // the first statement of the loop body.
+        body.unshift(astForPytchYield(n));
+    }
+
     return new Sk.astnodes.For(target,
         ast_for_testlist(c, CHILD(n, 3)),
-        astForSuite(c, CHILD(n, 5)),
+        body,
         seq, n.lineno, n.col_offset);
 }
 
@@ -2006,11 +2040,19 @@ function ast_for_setcomp(c, n) {
 function astForWhileStmt (c, n) {
     /* while_stmt: 'while' test ':' suite ['else' ':' suite] */
     REQ(n, SYM.while_stmt);
+
+    var body = astForSuite(c, CHILD(n, 3));
+    if (Sk.pytchThreading) {
+        // Add the yield-until-next-frame wait for a Pytch program, as
+        // the first statement of the loop body.
+        body.unshift(astForPytchYield(n));
+    }
+
     if (NCH(n) === 4) {
-        return new Sk.astnodes.While(ast_for_expr(c, CHILD(n, 1)), astForSuite(c, CHILD(n, 3)), [], n.lineno, n.col_offset);
+        return new Sk.astnodes.While(ast_for_expr(c, CHILD(n, 1)), body, [], n.lineno, n.col_offset);
     }
     else if (NCH(n) === 7) {
-        return new Sk.astnodes.While(ast_for_expr(c, CHILD(n, 1)), astForSuite(c, CHILD(n, 3)), astForSuite(c, CHILD(n, 6)), n.lineno, n.col_offset);
+        return new Sk.astnodes.While(ast_for_expr(c, CHILD(n, 1)), body, astForSuite(c, CHILD(n, 6)), n.lineno, n.col_offset);
     }
     Sk.asserts.fail("wrong number of tokens for 'while' stmt");
 }

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("code")
+raise NotImplementedError("code is not yet implemented in Skulpt")

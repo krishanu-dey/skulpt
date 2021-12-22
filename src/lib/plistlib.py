@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("plistlib")
+raise NotImplementedError("plistlib is not yet implemented in Skulpt")

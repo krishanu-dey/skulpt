@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("zipfile")
+raise NotImplementedError("zipfile is not yet implemented in Skulpt")

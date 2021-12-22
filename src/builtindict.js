@@ -63,7 +63,6 @@ Sk.builtins = {
     "StopIteration"      : Sk.builtin.StopIteration,
     "SyntaxError"        : Sk.builtin.SyntaxError,
     "SystemError"        : Sk.builtin.SystemError,
-    "KeyboardInterrupt"  : Sk.builtin.KeyboardInterrupt,
 
     "float_$rw$": Sk.builtin.float_,
     "int_$rw$"  : Sk.builtin.int_,

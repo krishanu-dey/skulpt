@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("sqlite3")
+raise NotImplementedError("sqlite3 is not yet implemented in Skulpt")

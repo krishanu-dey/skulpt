@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("shelve")
+raise NotImplementedError("shelve is not yet implemented in Skulpt")

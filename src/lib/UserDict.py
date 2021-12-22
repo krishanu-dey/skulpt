@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("UserDict")
+raise NotImplementedError("UserDict is not yet implemented in Skulpt")

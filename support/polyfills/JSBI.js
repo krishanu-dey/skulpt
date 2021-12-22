@@ -15,7 +15,8 @@ const JSBI = Sk.global.JSBI = Sk.global.BigInt !== undefined ? {} : __JSBI;
 
 if (Sk.global.BigInt === undefined) {
     // __isBigInt is not part of the public api so include it if this is ever removed
-    JSBI.__isBigInt || (JSBI.__isBigInt = (x) => x instanceof JSBI);
+    const __isBigInt = JSBI.__isBigInt; // fixes a bug with null values passed to __isBigInt
+    JSBI.__isBigInt = __isBigInt ? (x) => x !== null && __isBigInt(x) : (x) => x instanceof JSBI;
     JSBI.powermod = (x, y, z) => {
         const One = JSBI.BigInt(1);
         let number = One;
@@ -44,7 +45,6 @@ if (Sk.global.BigInt === undefined) {
          * x**y would be better but closure compilere changes that to Math.pow
          * https://github.com/google/closure-compiler/issues/3684 */
         exponentiate: (x, y) => {
-            // can only exponentiate a postive y - enforced by int.js
             const One = JSBI.BigInt(1);
             let number = One;
             y = y > JSBI.__ZERO ? y : -y;

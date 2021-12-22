@@ -146,7 +146,7 @@ Sk.builtin.mappingproxy = Sk.abstr.buildNativeClass("mappingproxy", {
         },
     },
     flags: {
-        sk$unacceptableBase: true,
+        sk$acceptable_as_base_class: false,
     },
 });
 

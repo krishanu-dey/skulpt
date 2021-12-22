@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("mimify")
+raise NotImplementedError("mimify is not yet implemented in Skulpt")

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("imghdr")
+raise NotImplementedError("imghdr is not yet implemented in Skulpt")

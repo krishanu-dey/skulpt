@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("sndhdr")
+raise NotImplementedError("sndhdr is not yet implemented in Skulpt")

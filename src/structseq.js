@@ -1,6 +1,6 @@
 Sk.builtin.structseq_types = {};
 
-Sk.builtin.make_structseq = function (module, name, visible_fields, hidden_fields={}, doc=null) {
+Sk.builtin.make_structseq = function (module, name, visible_fields, hidden_fields, doc) {
     const nm = module + "." + name;
     const flds = [];
     const getsets = {};

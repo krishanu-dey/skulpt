@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("tempfile")
+raise NotImplementedError("tempfile is not yet implemented in Skulpt")

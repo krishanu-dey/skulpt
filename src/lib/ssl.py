@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("ssl")
+raise NotImplementedError("ssl is not yet implemented in Skulpt")

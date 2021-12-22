@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("csv")
+raise NotImplementedError("csv is not yet implemented in Skulpt")

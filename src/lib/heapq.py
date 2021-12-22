@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("heapq")
+raise NotImplementedError("heapq is not yet implemented in Skulpt")

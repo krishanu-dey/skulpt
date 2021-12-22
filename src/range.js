@@ -150,7 +150,7 @@ Sk.builtin.range_ = Sk.abstr.buildNativeClass("range", {
         },
     },
     flags: {
-        sk$unacceptableBase: true,
+        sk$acceptable_as_base_class: false,
     },
 });
 
@@ -215,7 +215,7 @@ var range_iter_ = Sk.abstr.buildIteratorClass("range_iterator", {
     methods: {
         __length_hint__: Sk.generic.iterLengthHintWithArrayMethodDef,
     },
-    flags: { sk$unacceptableBase: true },
+    flags: { sk$acceptable_as_base_class: false },
 });
 
 var reverserange_iter_ = Sk.abstr.buildIteratorClass("range_reverseiterator", {
@@ -229,7 +229,7 @@ var reverserange_iter_ = Sk.abstr.buildIteratorClass("range_reverseiterator", {
     methods: {
         __length_hint__: Sk.generic.iterReverseLengthHintMethodDef,
     },
-    flags: { sk$unacceptableBase: true },
+    flags: { sk$acceptable_as_base_class: false },
 });
 
 function convertIfSafe(v) {

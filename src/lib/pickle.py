@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("pickle")
+raise NotImplementedError("pickle is not yet implemented in Skulpt")

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("encodings")
+raise NotImplementedError("encodings is not yet implemented in Skulpt")

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("audiodev")
+raise NotImplementedError("audiodev is not yet implemented in Skulpt")

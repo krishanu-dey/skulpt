@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("rfc822")
+raise NotImplementedError("rfc822 is not yet implemented in Skulpt")

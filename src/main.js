@@ -84,5 +84,6 @@ require("./super.js");
 require("./generic_alias.js");
 require("./builtindict.js");
 require("./constants.js");
+require("./pytchsupport.js");
 
 /* jshint ignore:end */

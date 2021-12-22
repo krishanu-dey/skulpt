@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("fpformat")
+raise NotImplementedError("fpformat is not yet implemented in Skulpt")

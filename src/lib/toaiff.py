@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("toaiff")
+raise NotImplementedError("toaiff is not yet implemented in Skulpt")

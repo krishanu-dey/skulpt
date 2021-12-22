@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("uu")
+raise NotImplementedError("uu is not yet implemented in Skulpt")

@@ -51,7 +51,6 @@ Sk.importSearchPathForName = function (name, ext, searchPath) {
 };
 
 
-
 /**
  * currently only pull once from Sk.syspath. User might want to change
  * from js or from py.
@@ -273,15 +272,9 @@ Sk.importModuleInternal_ = function (name, dumpJS, modname, suppliedPyBody, rela
             if (co.filename && co.funcname !== "$builtinmodule") {
                 module["$d"]["__file__"] = new Sk.builtin.str(co.filename);
             }
-            try {
-                return modscope(module["$d"]);
-            } catch (e) {
-                try {
-                    // don't cache a module if it raised an exception on load
-                    Sk.abstr.objectDelItem(Sk.sysmodules, new Sk.builtin.str(modname));
-                } catch {}
-                throw e;
-            }
+
+            return modscope(module["$d"]);
+
         }, function (modlocs) {
             var i;
 

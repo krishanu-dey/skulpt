@@ -24,7 +24,7 @@ Sk.builtin.none = Sk.abstr.buildNativeClass("NoneType", {
         },
     },
     flags: {
-        sk$unacceptableBase: true,
+        sk$acceptable_as_base_class: false,
     },
 });
 
@@ -57,7 +57,7 @@ Sk.builtin.NotImplemented = Sk.abstr.buildNativeClass("NotImplementedType", {
         },
     },
     flags: {
-        sk$unacceptableBase: true,
+        sk$acceptable_as_base_class: false,
     }
 });
 
@@ -85,7 +85,7 @@ const EllipsisType = Sk.abstr.buildNativeClass("ellipsis", {
         }
     },
     flags: {
-        sk$unacceptableBase: true,
+        sk$acceptable_as_base_class: false,
     }
 });
 

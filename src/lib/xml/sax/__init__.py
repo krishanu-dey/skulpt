@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("sax")
+raise NotImplementedError("sax is not yet implemented in Skulpt")

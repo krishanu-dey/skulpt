@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("posixpath")
+raise NotImplementedError("posixpath is not yet implemented in Skulpt")

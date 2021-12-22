@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("robotparser")
+raise NotImplementedError("robotparser is not yet implemented in Skulpt")

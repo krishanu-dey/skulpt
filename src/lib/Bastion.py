@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("Bastion")
+raise NotImplementedError("Bastion is not yet implemented in Skulpt")

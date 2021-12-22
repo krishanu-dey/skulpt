@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("ftplib")
+raise NotImplementedError("ftplib is not yet implemented in Skulpt")

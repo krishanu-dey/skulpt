@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("timeit")
+raise NotImplementedError("timeit is not yet implemented in Skulpt")

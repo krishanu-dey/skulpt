@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("new")
+raise NotImplementedError("new is not yet implemented in Skulpt")

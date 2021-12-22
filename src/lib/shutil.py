@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("shutil")
+raise NotImplementedError("shutil is not yet implemented in Skulpt")

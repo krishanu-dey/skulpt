@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("getpass")
+raise NotImplementedError("getpass is not yet implemented in Skulpt")

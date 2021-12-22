@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("htmlentitydefs")
+raise NotImplementedError("htmlentitydefs is not yet implemented in Skulpt")

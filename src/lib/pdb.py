@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("pdb")
+raise NotImplementedError("pdb is not yet implemented in Skulpt")

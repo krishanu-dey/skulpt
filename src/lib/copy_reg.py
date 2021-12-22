@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("copy_reg")
+raise NotImplementedError("copy_reg is not yet implemented in Skulpt")

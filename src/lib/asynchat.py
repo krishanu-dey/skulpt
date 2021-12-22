@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("asynchat")
+raise NotImplementedError("asynchat is not yet implemented in Skulpt")

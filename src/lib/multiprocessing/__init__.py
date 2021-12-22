@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("multiprocessing")
+raise NotImplementedError("multiprocessing is not yet implemented in Skulpt")

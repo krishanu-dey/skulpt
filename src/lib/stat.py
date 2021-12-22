@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("stat")
+raise NotImplementedError("stat is not yet implemented in Skulpt")

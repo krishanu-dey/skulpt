@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("dircache")
+raise NotImplementedError("dircache is not yet implemented in Skulpt")

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("struct")
+raise NotImplementedError("struct is not yet implemented in Skulpt")

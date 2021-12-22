@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("fractions")
+raise NotImplementedError("fractions is not yet implemented in Skulpt")

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("ntpath")
+raise NotImplementedError("ntpath is not yet implemented in Skulpt")

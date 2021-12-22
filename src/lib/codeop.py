@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("codeop")
+raise NotImplementedError("codeop is not yet implemented in Skulpt")

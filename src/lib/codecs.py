@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("codecs")
+raise NotImplementedError("codecs is not yet implemented in Skulpt")

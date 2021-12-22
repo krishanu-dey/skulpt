@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("sre_constants")
+raise NotImplementedError("sre_constants is not yet implemented in Skulpt")

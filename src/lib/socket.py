@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("socket")
+raise NotImplementedError("socket is not yet implemented in Skulpt")

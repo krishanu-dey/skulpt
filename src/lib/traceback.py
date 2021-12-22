@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("traceback")
+raise NotImplementedError("traceback is not yet implemented in Skulpt")

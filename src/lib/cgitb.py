@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("cgitb")
+raise NotImplementedError("cgitb is not yet implemented in Skulpt")

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("xml")
+raise NotImplementedError("xml is not yet implemented in Skulpt")

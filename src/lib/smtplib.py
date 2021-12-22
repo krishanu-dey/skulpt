@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("smtplib")
+raise NotImplementedError("smtplib is not yet implemented in Skulpt")

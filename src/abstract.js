@@ -975,8 +975,6 @@ Sk.abstr.setUpBuiltinMro = function (child) {
         Object.defineProperty(child, "sk$baseClass", { value: true, writable: true });
         Object.defineProperty(child.prototype, "sk$builtinBase", { value: child, writable: true });
     }
-    // assume solid base - this can be overridden later in flags
-    Object.defineProperty(child, "sk$solidBase", { value: true, writable: true });
     const mro = [child];
     while (base !== null) {
         mro.push(base);
@@ -1232,7 +1230,7 @@ Sk.abstr.setUpSlots = function (klass, slots) {
  * - getsets: getset objects `{$get: Function, $set: Function, $doc: string}`,
  * - classmethods: classmethod objects `{$meth: Function, $flags: callmethod, $doc: string, $textsic: string|null}`,
  *
- * - flags: Object allocated directly onto class like `klass.sk$unacceptableBase`
+ * - flags: Object allocated directly onto class like `klass.sk$acceptable_as_base_class`
  * - proto: Object allocated onto the prototype useful for private methods
  * ```
  * See most builtin type objects for examples

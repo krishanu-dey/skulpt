@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("data")
+raise NotImplementedError("data is not yet implemented in Skulpt")

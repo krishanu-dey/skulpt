@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("distutils")
+raise NotImplementedError("distutils is not yet implemented in Skulpt")

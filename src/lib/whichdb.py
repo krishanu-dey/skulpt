@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("whichdb")
+raise NotImplementedError("whichdb is not yet implemented in Skulpt")

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("pkgutil")
+raise NotImplementedError("pkgutil is not yet implemented in Skulpt")

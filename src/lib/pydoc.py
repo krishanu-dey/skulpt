@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("pydoc")
+raise NotImplementedError("pydoc is not yet implemented in Skulpt")

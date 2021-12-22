@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("mailbox")
+raise NotImplementedError("mailbox is not yet implemented in Skulpt")

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("popen2")
+raise NotImplementedError("popen2 is not yet implemented in Skulpt")

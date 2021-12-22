@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("poplib")
+raise NotImplementedError("poplib is not yet implemented in Skulpt")

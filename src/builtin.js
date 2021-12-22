@@ -511,18 +511,16 @@ Sk.builtin.unichr = function unichr(x) {
  * This is a helper function and we already know that x is an int or has an nb$index slot
  */
 Sk.builtin.int2str_ = function helper_(x, radix, prefix) {
-    let v = x.nb$index();
-    let isNegative = false;
-    if (typeof v === "number") {
-        isNegative = v < 0;
-        v = isNegative ? -v : v;
+    let v;
+    if (x.constructor === Sk.builtin.int_ || x instanceof Sk.builtin.int_) {
+        v = x.v; // we don't use asnum$ because it returns a str rather than a bigint.
     } else {
-        isNegative = JSBI.lessThan(v, JSBI.__ZERO);
-        v = isNegative ? JSBI.unaryMinus(v) : v;
+        x = x.nb$index();
+        v = x.v;
     }
     let str = v.toString(radix);
-    if (isNegative) {
-        str = "-" + prefix + str;
+    if (x.nb$isnegative()) {
+        str = "-" + prefix + str.slice(1);
     } else {
         str = prefix + str;
     }

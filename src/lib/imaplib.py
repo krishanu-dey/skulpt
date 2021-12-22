@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("imaplib")
+raise NotImplementedError("imaplib is not yet implemented in Skulpt")

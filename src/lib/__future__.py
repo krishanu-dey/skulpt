@@ -1,1 +1,1 @@
-import _sk_fail;_sk_fail._("__future__")
+raise NotImplementedError("__future__ is not yet implemented in Skulpt")

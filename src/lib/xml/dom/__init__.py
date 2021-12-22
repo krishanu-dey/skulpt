@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("dom")
+raise NotImplementedError("dom is not yet implemented in Skulpt")

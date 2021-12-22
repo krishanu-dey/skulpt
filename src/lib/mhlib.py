@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("mhlib")
+raise NotImplementedError("mhlib is not yet implemented in Skulpt")

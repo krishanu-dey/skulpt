@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("pipes")
+raise NotImplementedError("pipes is not yet implemented in Skulpt")

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("Icons")
+raise NotImplementedError("Icons is not yet implemented in Skulpt")

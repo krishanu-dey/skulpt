@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("BaseHTTPServer")
+raise NotImplementedError("BaseHTTPServer is not yet implemented in Skulpt")

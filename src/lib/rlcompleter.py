@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("rlcompleter")
+raise NotImplementedError("rlcompleter is not yet implemented in Skulpt")

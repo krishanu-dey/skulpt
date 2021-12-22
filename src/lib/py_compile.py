@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("py_compile")
+raise NotImplementedError("py_compile is not yet implemented in Skulpt")

@@ -17,6 +17,7 @@
  * nonreadopen: Boolean - set to true to allow non-read file operations
  * fileopen: Optional function to call any time a file is opened
  * filewrite: Optional function to call when writing to a file
+ * pytchThreading: Add a call to pytch.yield_until_next_frame() into strategic points in the AST.
  *
  * Any variables that aren't set will be left alone.
  */
@@ -72,6 +73,55 @@ Sk.python3 = {
     silent_octal_literal: false,
 };
 
+// Create the default Pytch environment and assign it into the
+// global 'Sk' object.
+//
+(() => {
+    let bad_async_load_image = url => {
+        throw Error("please set async_load_image");
+    };
+
+    let inactive_keyboard = {
+        key_is_pressed: (keyname) => false,
+        drain_new_keydown_events: () => [],
+    };
+
+    let inactive_mouse = {
+        drain_new_click_events: () => [],
+    };
+
+    let do_nothing = (() => {});
+    let return_empty_list = (() => []);
+
+    let do_nothing_project = {
+        on_green_flag_clicked: do_nothing,
+        on_red_stop_clicked: do_nothing,
+        one_frame: do_nothing,
+        rendering_instructions: return_empty_list,
+        threads_info: return_empty_list,
+    };
+
+    let bad_async_load_sound = url => {
+        throw Error("please set sound_manager.async_load_sound");
+    };
+
+    let do_nothing_sound_manager = {
+        async_load_sound: bad_async_load_sound,
+        one_frame: do_nothing,
+        stop_all_performances: do_nothing,
+    };
+
+    Sk.default_pytch_environment = {
+        async_load_image: bad_async_load_image,
+        keyboard: inactive_keyboard,
+        mouse: inactive_mouse,
+        sound_manager: do_nothing_sound_manager,
+        current_live_project: do_nothing_project,
+        on_exception: do_nothing,
+        executing_thread: null,
+    };
+})();
+
 Sk.configure = function (options) {
     "use strict";
     Sk.output = options["output"] || Sk.output;
@@ -94,6 +144,9 @@ Sk.configure = function (options) {
 
     Sk.filewrite = options["filewrite"] || undefined;
     Sk.asserts.assert(typeof Sk.filewrite === "function" || typeof Sk.filewrite === "undefined");
+
+    Sk.pytchThreading = options["pytchThreading"] || false;
+    Sk.asserts.assert(typeof Sk.pytchThreading === "boolean");
 
     Sk.timeoutMsg = options["timeoutMsg"] || Sk.timeoutMsg;
     Sk.asserts.assert(typeof Sk.timeoutMsg === "function");
@@ -141,6 +194,10 @@ Sk.configure = function (options) {
 
     Sk.killableFor = options["killableFor"] || false;
     Sk.asserts.assert(typeof Sk.killableFor === "boolean");
+
+    Sk.pytch = Object.assign({},
+                             Sk.default_pytch_environment,
+                             (options["pytch"] || {}));
 
     Sk.signals = typeof options["signals"] !== undefined ? options["signals"] : null;
     if (Sk.signals === true) {

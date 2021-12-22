@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("pgen2")
+raise NotImplementedError("pgen2 is not yet implemented in Skulpt")

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("difflib")
+raise NotImplementedError("difflib is not yet implemented in Skulpt")

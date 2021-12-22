@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("compiler")
+raise NotImplementedError("compiler is not yet implemented in Skulpt")

@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("gzip")
+raise NotImplementedError("gzip is not yet implemented in Skulpt")

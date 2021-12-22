@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("os")
+raise NotImplementedError("os is not yet implemented in Skulpt")

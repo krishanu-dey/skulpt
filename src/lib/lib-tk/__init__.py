@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("lib-tk")
+raise NotImplementedError("lib-tk is not yet implemented in Skulpt")

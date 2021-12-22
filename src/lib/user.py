@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("user")
+raise NotImplementedError("user is not yet implemented in Skulpt")

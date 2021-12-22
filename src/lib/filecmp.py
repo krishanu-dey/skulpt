@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("filecmp")
+raise NotImplementedError("filecmp is not yet implemented in Skulpt")

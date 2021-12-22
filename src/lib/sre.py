@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("sre")
+raise NotImplementedError("sre is not yet implemented in Skulpt")

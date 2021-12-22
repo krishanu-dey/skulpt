@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("markupbase")
+raise NotImplementedError("markupbase is not yet implemented in Skulpt")

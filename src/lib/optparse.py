@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("optparse")
+raise NotImplementedError("optparse is not yet implemented in Skulpt")

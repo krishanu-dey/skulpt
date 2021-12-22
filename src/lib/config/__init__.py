@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("config")
+raise NotImplementedError("config is not yet implemented in Skulpt")

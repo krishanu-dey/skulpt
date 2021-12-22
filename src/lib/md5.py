@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("md5")
+raise NotImplementedError("md5 is not yet implemented in Skulpt")

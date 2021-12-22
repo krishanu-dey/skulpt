@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("macurl2path")
+raise NotImplementedError("macurl2path is not yet implemented in Skulpt")

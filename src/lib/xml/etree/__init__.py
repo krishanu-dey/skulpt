@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("etree")
+raise NotImplementedError("etree is not yet implemented in Skulpt")

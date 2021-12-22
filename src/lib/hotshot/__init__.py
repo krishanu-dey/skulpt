@@ -1,1 +1,1 @@
-import _sk_fail; _sk_fail._("hotshot")
+raise NotImplementedError("hotshot is not yet implemented in Skulpt")
