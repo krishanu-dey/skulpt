@@ -11,9 +11,9 @@ def login_redirect():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-	if request.method == "post":
+	if request.method == "POST":
 		return "login POST - " + str(request.form)
-	elif request.method == "get":
+	elif request.method == "GET":
 		return "login GET - " + str(request.args)
 	return "login here - request method not supported."
 
@@ -62,7 +62,7 @@ def test_handleRoute():
 	}
 	gotResp = app.handleRoute("/template", requestData)
 	if gotResp != needResp:
-		print(f'app.handleRoute("/dynamic_url", None) returned {gotResp}, but need {needResp}.')
+		print(f'app.handleRoute("/template", None) returned {gotResp}, but need {needResp}.')
 		return False
 
 	return True
@@ -149,26 +149,29 @@ def test_render_template():
 
 def test_form_wiring():
 	form = {
-		"method": "post",
+		"method": "POST",
 		"data": {
 			"test": "correct post request",
 		}
 	}
 	gotResp = app.handleRoute("/login", form)
-	if gotResp["html"] != "login POST - {'test': 'correct post request'}":
+	needResp = "login POST - {'test': 'correct post request'}"
+	if gotResp["html"] != needResp:
+		print(f'test_form_wiring: handleRoute("/login", {form}) returned {gotResp["html"]}, but need {needResp}.')
 		return False
 
 	form = {
-		"method": "get",
+		"method": "GET",
 		"data": {
 			"test": "correct get request",
 		}
 	}
 	gotResp = app.handleRoute("/login", form)
 	if gotResp["html"] != "login GET - {'test': 'correct get request'}":
+		print(f'test_form_wiring: handleRoute("/login", {form}) returned {gotResp["html"]}, but need {needResp}.')
 		return False
 
-	form = {
+	form = {	
 		"method": "delete",
 		"data": {
 			"test": "incorrect request",
@@ -176,6 +179,7 @@ def test_form_wiring():
 	}
 	gotResp = app.handleRoute("/login", form)
 	if gotResp["error"] != 'The method /login does not support form method delete.':
+		print(f'test_form_wiring: handleRoute("/login", {form}) returned {gotResp["html"]}, but need {needResp}.')
 		return False
 
 	return True
@@ -192,7 +196,7 @@ if __name__ == '__main__':
 		test_form_wiring(),
 	]
 	if False in test_results:
-		print(f"All tests did not pass.")
+		print(f"All tests did not pass." + str(test_results))
 	else:
 		print(f"All tests passed.")
 

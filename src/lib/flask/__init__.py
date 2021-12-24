@@ -25,21 +25,24 @@ class Flask():
     
     def route(self, route, **kwargs):
         def wrapper(func):
-            self.endpointToRoutes[func.__name__] = route
-            self.routingTable[route] = RouteTableEntry(func, kwargs.pop('methods', ''))
+            self.add_url_route(route, func.__name__, func, **kwargs)
             return func
         return wrapper
 
     def add_url_route(self, route, endpoint, view_function, **kwargs):
+        methods = kwargs.pop('methods', '')
+        methods = [method.upper() for method in methods]
+        if methods == []:
+            methods.append("GET")
+
         self.endpointToRoutes[endpoint] = route
-        self.routingTable[route] = RouteTableEntry(view_function, kwargs.pop('methods', ''))
+        self.routingTable[route] = RouteTableEntry(view_function, methods)
 
     def handleRoute(self, routeInput, requestData):
         response = {}
         for routeFromTable in self.routingTable.keys():
             evaluatedRoute = routeMatch(routeFromTable, routeInput)
             if evaluatedRoute[0]:
-                response["request"] = requestData
                 requestMethod = requestData["method"]
                 if requestMethod.upper() in self.routingTable[routeFromTable].methods:
                     loadDataToRequest(requestData)
@@ -66,9 +69,9 @@ class RouteTableEntry:
 
 def loadDataToRequest(requestData):
     request.method = requestData["method"]
-    if request.method.lower() == "get":
+    if request.method.upper() == "GET":
         request.args = requestData.get("data")
-    elif request.method.lower() == "post":
+    elif request.method.upper() == "POST":
         request.form = requestData.get("data")
 
 def redirect(newRoute):
