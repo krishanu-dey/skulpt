@@ -1,5 +1,6 @@
-from __init__ import Flask, redirect, url_for, abort, render_template
 from helpers import routeMatch
+
+from __init__ import Flask, redirect, url_for, abort, render_template, request
 
 # Set up test environment.
 app = Flask("basic app")
@@ -10,7 +11,11 @@ def login_redirect():
 
 @app.route("/login", methods=["POST", "GET"])
 def login():
-	return "login here"
+	if request.method == "post":
+		return "login POST - " + str(request.form)
+	elif request.method == "get":
+		return "login GET - " + str(request.args)
+	return "login here - request method not supported."
 
 @app.route("/signup")
 def signup():
@@ -24,8 +29,9 @@ def dynamic_url(user, postID, weight):
 def template():
     return render_template("hi {{ name }} , {{ age }}", name="kris", age=23)
 
-#Test functions.
+#Test functions.x
 def test_handleRoute():
+	requestData = {"method": "GET"}
 	needResp = {
 	'html': 'this user kris has 12 and weight 70.0', 
 	'endpointToRoutes': {
@@ -37,10 +43,10 @@ def test_handleRoute():
 		}
 	}
 	
-	gotResp = app.handleRoute("/blog/kris/12/70.0")
+	gotResp = app.handleRoute("/blog/kris/12/70.0", requestData)
 	
 	if gotResp != needResp:
-		print(f'app.handleRoute("/dynamic_url") returned {gotResp}, but need {needResp}.')
+		print(f'app.handleRoute("/dynamic_url") returned {gotResp}, but need {needResp}.', None)
 		return False
 
 	needResp = {
@@ -54,9 +60,9 @@ def test_handleRoute():
 		'template': '/template',
 		}
 	}
-	gotResp = app.handleRoute("/template")
+	gotResp = app.handleRoute("/template", requestData)
 	if gotResp != needResp:
-		print(f'app.handleRoute("/dynamic_url") returned {gotResp}, but need {needResp}.')
+		print(f'app.handleRoute("/dynamic_url", None) returned {gotResp}, but need {needResp}.')
 		return False
 
 	return True
@@ -141,6 +147,39 @@ def test_render_template():
 
     return True
 
+def test_form_wiring():
+	form = {
+		"method": "post",
+		"data": {
+			"test": "correct post request",
+		}
+	}
+	gotResp = app.handleRoute("/login", form)
+	if gotResp["html"] != "login POST - {'test': 'correct post request'}":
+		return False
+
+	form = {
+		"method": "get",
+		"data": {
+			"test": "correct get request",
+		}
+	}
+	gotResp = app.handleRoute("/login", form)
+	if gotResp["html"] != "login GET - {'test': 'correct get request'}":
+		return False
+
+	form = {
+		"method": "delete",
+		"data": {
+			"test": "incorrect request",
+		}
+	}
+	gotResp = app.handleRoute("/login", form)
+	if gotResp["error"] != 'The method /login does not support form method delete.':
+		return False
+
+	return True
+
 if __name__ == '__main__':
 	test_results = [
 		test_handleRoute(),
@@ -150,6 +189,7 @@ if __name__ == '__main__':
 		test_abort(),
 		test_routeMatch(),
 		test_render_template(),
+		test_form_wiring(),
 	]
 	if False in test_results:
 		print(f"All tests did not pass.")

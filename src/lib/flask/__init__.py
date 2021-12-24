@@ -1,5 +1,12 @@
 from helpers import routeMatch
 
+class Request:
+    def __init__(self):
+        self.method = ""
+        self.args = {}
+        self.form = {}
+request = Request()
+
 global app
 html_files = {}
 
@@ -27,11 +34,18 @@ class Flask():
         self.endpointToRoutes[endpoint] = route
         self.routingTable[route] = RouteTableEntry(view_function, kwargs.pop('methods', ''))
 
-    def handleRoute(self, routeInput):
+    def handleRoute(self, routeInput, requestData):
         response = {}
         for routeFromTable in self.routingTable.keys():
             evaluatedRoute = routeMatch(routeFromTable, routeInput)
             if evaluatedRoute[0]:
+                response["request"] = requestData
+                requestMethod = requestData["method"]
+                if requestMethod.upper() in self.routingTable[routeFromTable].methods:
+                    loadDataToRequest(requestData)
+                else:
+                    response["error"] = f"The method {routeFromTable} does not support form method {requestMethod}."
+                
                 htmlWithParamsMaybe = self.routingTable[routeFromTable].func(**evaluatedRoute[1])
                 if type(htmlWithParamsMaybe) == str:  	
                     response["html"] = htmlWithParamsMaybe
@@ -39,12 +53,23 @@ class Flask():
                     response["html"] = htmlWithParamsMaybe[0]
                     response["template_params"] = htmlWithParamsMaybe[1]
                 response["endpointToRoutes"] = self.endpointToRoutes
+
+                return response
+
+        response["error"] = "Invalid route requested."
         return response
 
 class RouteTableEntry:
     def __init__(self, func, methods):
         self.func = func
         self.methods = methods
+
+def loadDataToRequest(requestData):
+    request.method = requestData["method"]
+    if request.method.lower() == "get":
+        request.args = requestData.get("data")
+    elif request.method.lower() == "post":
+        request.form = requestData.get("data")
 
 def redirect(newRoute):
     return app.routingTable[newRoute].func()

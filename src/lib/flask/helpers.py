@@ -8,7 +8,7 @@ def routeMatch(routeRule, routeInput):
 	params = {}
 	for i in range(len(routeRuleSplit)):
 		if '<' in routeRuleSplit[i]:
-			# <int:postID>
+			# <int:postID>, <float:longitude>, <username>
 			rule = routeRuleSplit[i]
 			rule = rule.replace('<', '|')
 			rule = rule.replace(':', '|')
@@ -21,15 +21,15 @@ def routeMatch(routeRule, routeInput):
 					value = int(routeInputSplit[i])
 					params[ruleSplit[2]] = value
 				except ValueError:
-				    return False, None
+					return False, None
 						
 			# <float:longitude>
 			elif ruleSplit[1] == 'float':
 				try:
-				    value = float(routeInputSplit[i])
-				    params[ruleSplit[2]] = value
+					value = float(routeInputSplit[i])
+					params[ruleSplit[2]] = value
 				except ValueError:
-				    return False, None
+					return False, None
 
 			# <username>
 			else:
