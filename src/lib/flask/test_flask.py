@@ -155,7 +155,6 @@ def test_form_wiring():
 		}
 	}
 	gotResp = app.handleRoute("/login", form)
-	print(gotResp)
 	needResp = "login POST - {'test': 'correct post request'}"
 	if gotResp["html"] != needResp:
 		print(f'test_form_wiring: handleRoute("/login", {form}) returned {gotResp["html"]}, but need {needResp}.')
