@@ -1,6 +1,6 @@
 from helpers import routeMatch
 
-from __init__ import Flask, redirect, url_for, abort, render_template, request
+from __init__ import Flask, redirect, url_for, abort, render_template, request, session
 
 # Set up test environment.
 app = Flask("basic app")
@@ -29,18 +29,26 @@ def dynamic_url(user, postID, weight):
 def template():
     return render_template("hi {{ name }} , {{ age }}", name="kris", age=23)
 
+@app.route("/add_to_session/<user>")
+def add_to_session(user):
+	session["username"] = {user}
+	return "session: " + str(session)
+
+endpointToRoutes = {
+	'login_redirect': '/lg', 
+	'login': '/login', 
+	'signup': '/signup',
+	'dynamic_url': '/blog/<user>/<int:postID>/<float:weight>',
+	'template': '/template',
+	'add_to_session': '/add_to_session/<user>',
+}
+
 #Test functions.x
 def test_handleRoute():
 	requestData = {"method": "GET"}
 	needResp = {
 	'html': 'this user kris has 12 and weight 70.0', 
-	'endpointToRoutes': {
-		'login_redirect': '/lg', 
-		'login': '/login', 
-		'signup': '/signup',
-		'dynamic_url': '/blog/<user>/<int:postID>/<float:weight>',
-		'template': '/template',
-		}
+	'endpointToRoutes': endpointToRoutes,
 	}
 	
 	gotResp = app.handleRoute("/blog/kris/12/70.0", requestData)
@@ -52,13 +60,7 @@ def test_handleRoute():
 	needResp = {
 	'html': 'hi {{ name }} , {{ age }}',
 	'template_params': {'name': 'kris', 'age': 23},
-	'endpointToRoutes': {
-		'login_redirect': '/lg', 
-		'login': '/login', 
-		'signup': '/signup',
-		'dynamic_url': '/blog/<user>/<int:postID>/<float:weight>',
-		'template': '/template',
-		}
+	'endpointToRoutes': endpointToRoutes,
 	}
 	gotResp = app.handleRoute("/template", requestData)
 	if gotResp != needResp:
@@ -147,6 +149,21 @@ def test_render_template():
 
     return True
 
+def test_add_to_session():
+	requestData = {"method": "GET"}
+	needResp = {
+	'html': "session: {'username': {'kris'}}", 
+	'endpointToRoutes': endpointToRoutes,
+	}
+	
+	gotResp = app.handleRoute("/add_to_session/kris", requestData)
+	
+	if gotResp != needResp:
+		print(f'app.handleRoute("/add_to_session/kris") returned {gotResp}, but need {needResp}.', None)
+		return False
+
+	return True
+
 def test_form_wiring():
 	form = {
 		"method": "POST",
@@ -194,6 +211,7 @@ if __name__ == '__main__':
 		test_routeMatch(),
 		test_render_template(),
 		test_form_wiring(),
+		test_add_to_session(),
 	]
 	if False in test_results:
 		print(f"All tests did not pass." + str(test_results))

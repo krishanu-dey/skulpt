@@ -10,6 +10,8 @@ request = Request()
 global app
 html_files = {}
 
+session = {}
+
 class Flask():
     "The starting class for all Flask web apps"
     
@@ -21,6 +23,7 @@ class Flask():
         app = self
 
     def run(self):
+        session = {}
         print("Flask is running")
     
     def route(self, route, **kwargs):
