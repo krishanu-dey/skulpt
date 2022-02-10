@@ -34,6 +34,10 @@ def add_to_session(user):
 	session["username"] = {user}
 	return "session: " + str(session)
 
+@app.route("/error")
+def error():
+	return lslslsl
+
 endpointToRoutes = {
 	'login_redirect': '/lg', 
 	'login': '/login', 
@@ -41,7 +45,9 @@ endpointToRoutes = {
 	'dynamic_url': '/blog/<user>/<int:postID>/<float:weight>',
 	'template': '/template',
 	'add_to_session': '/add_to_session/<user>',
+	'error': '/error',
 }
+
 
 #Test functions.x
 def test_handleRoute():
@@ -69,6 +75,7 @@ def test_handleRoute():
 
 	return True
 
+
 def test_url_for():
 	needResp = "/lg"
 	
@@ -79,6 +86,7 @@ def test_url_for():
 		return False
 	return True
 
+
 def test_redirect():
 	needResp = "signup here"
 	
@@ -88,6 +96,7 @@ def test_redirect():
 		print(f'redirect("/signup") returned {gotResp}, but need {needResp}.')
 		return False
 	return True
+
 
 def test_add_url_route():
     app.add_url_route("/signup", "signup", signup)	
@@ -106,6 +115,7 @@ def test_add_url_route():
 
     return True
 
+
 def test_abort():
     code = 401
     needResp = f'<title>Error Page: {code}</title> Error page for code number {code}'
@@ -116,6 +126,7 @@ def test_abort():
         return False
 
     return True
+
 
 def test_routeMatch():
 
@@ -139,6 +150,7 @@ def test_routeMatch():
 
 	return True
 
+
 def test_render_template():
     needResp = 'hi', {'name': 'kris', 'age': 23}
 
@@ -148,6 +160,7 @@ def test_render_template():
         return False
 
     return True
+
 
 def test_add_to_session():
 	requestData = {"method": "GET"}
@@ -163,6 +176,7 @@ def test_add_to_session():
 		return False
 
 	return True
+
 
 def test_form_wiring():
 	form = {
@@ -201,6 +215,17 @@ def test_form_wiring():
 
 	return True
 
+
+def test_error():
+	requestData = {"method": "GET"}
+	gotResp = app.handleRoute("/error", requestData)
+	needResp = "<h4> Syntax Error in the '/error' route function of 'GET' request type.</h4><h6>Error: name 'lslslsl' is not defined</h6>"
+	if gotResp["html"] != needResp:
+		print(f'test_form_wiring: handleRoute("/error", {requestData}) returned {gotResp["html"]}, but need {needResp}.')
+		return False
+
+	return True
+
 if __name__ == '__main__':
 	test_results = [
 		test_handleRoute(),
@@ -212,6 +237,7 @@ if __name__ == '__main__':
 		test_render_template(),
 		test_form_wiring(),
 		test_add_to_session(),
+		test_error(),
 	]
 	if False in test_results:
 		print(f"All tests did not pass." + str(test_results))
