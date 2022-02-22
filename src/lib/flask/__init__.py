@@ -7,9 +7,12 @@ class Request:
         self.form = {}
 request = Request()
 
-global app
+# TODO: Pass a dictionary mapping from file name to file html, rather than just 
+# html as a string.
 html_files = {}
 
+global app
+global session
 session = {}
 
 class Flask():
@@ -23,6 +26,7 @@ class Flask():
         app = self
 
     def run(self):
+        global session
         session = {}
         print("Flask is running")
     
