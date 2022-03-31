@@ -32,11 +32,11 @@ class Flask():
     
     def route(self, route, **kwargs):
         def wrapper(func):
-            self.add_url_route(route, func.__name__, func, **kwargs)
+            self.add_url_rule(route, func.__name__, func, **kwargs)
             return func
         return wrapper
 
-    def add_url_route(self, route, endpoint, view_function, **kwargs):
+    def add_url_rule(self, route, endpoint, view_function, **kwargs):
         methods = kwargs.pop('methods', '')
         methods = [method.upper() for method in methods]
         if methods == []:

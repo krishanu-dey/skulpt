@@ -61,8 +61,8 @@ def test_redirect():
 	return True
 
 
-def test_add_url_route():
-    app.add_url_route("/signup", "signup", signup)	
+def test_add_url_rule():
+    app.add_url_rule("/signup", "signup", signup)	
 	
     needRoute = "/signup"
     gotRoute = app.endpointToRoutes["signup"]
@@ -194,7 +194,7 @@ if __name__ == '__main__':
 		test_handleRoute(),
 		test_url_for(),
 		test_redirect(),
-		test_add_url_route(),
+		test_add_url_rule(),
 		test_abort(),
 		test_routeMatch(),
 		test_render_template(),
